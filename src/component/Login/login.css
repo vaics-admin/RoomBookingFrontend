@@ -1,0 +1,92 @@
+/* Login.css */
+.login-container {
+    height: 100vh;
+    background: url("C:/Users/VAICS-SHALYA/Downloads/shal (2).jpg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    width: 520px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 60px;
+}
+
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+    width: 100px;
+}
+
+.form-group input {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left:20%;
+}
+
+.login-form button {
+    width: 70%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 10%;
+}
+
+.login-form button:hover {
+    background: #0056b3;
+}
+
+.toggle-form {
+    text-align: center;
+    margin-top: 15px;
+    color: #666;
+}
+
+.toggle-form span {
+    color: #007bff;
+    cursor: pointer;
+}
+
+.toggle-form span:hover {
+    text-decoration: underline;
+}
+
+.message {
+    text-align: center;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: hsl(135, 84%, 58%);
+    color: #141414;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+}

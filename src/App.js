@@ -1,25 +1,51 @@
-import logo from './logo.svg';
+// import './App.css';
+// import BookingForm from './component/room/room';
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// import Login from './component/Login/login';
+// import ForgotPassword from './component/Login/forgotpassword';
+
+
+// function App() {
+//   return (
+//     <Router>
+//     <Routes>
+//       <Route path="/login" element={<Login />} />
+//       <Route path="/book-room" element={<BookingForm />} />
+//       <Route path="/" element={<Navigate to="/login" />} />
+//       <Route path="/forgot-password" element={<ForgotPassword />} />
+//       {/* <Route path="/reset-password" element={<ForgotPassword />} /> */}
+//     </Routes>
+//   </Router>
+// );
+// }
+
+// export default App;
+
+
 import './App.css';
+import BookingForm from './component/room/room';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './component/Login/login';
+import ForgotPassword from './component/Login/forgotpassword';
+import MicrosoftAuth from './component/MicrosoftAuth/MicrosoftAuth';
+import AuthSuccess from './component/MicrosoftAuth/AuthSuccess';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/book-room" element={<BookingForm />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/microsoft-auth" element={<MicrosoftAuth />} />
+        <Route path="/auth-success" element={<AuthSuccess />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+

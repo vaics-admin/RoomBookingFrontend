@@ -1,0 +1,249 @@
+/* Apply background image to the entire page */
+body {
+  background: url("C:\\Users\\VAICS-SHALYA\\Downloads\\shal (2).jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+ 
+/* Form container */
+.form-container {
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+ 
+/* Form Styling */
+form {
+  width: 580px; /* Increased form width */
+  padding: 25px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  margin-top: 50px;
+}
+ 
+/* Label Styling */
+/* Label Styling - Centered */
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center; /* Center align text */
+  width: 100%;
+  margin-left: auto; /* Centers label */
+  margin-right: auto; /* Centers label */
+}
+ 
+ 
+/* Input Fields */
+input {
+  width: 380px;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background: #f9f9f9;
+  transition: border 0.3s ease-in-out;
+margin-left: 100px;
+ 
+}
+ 
+/* Input Field Focus Effect */
+input:focus {
+  border: 1px solid #007bff;
+  outline: none;
+  background: #fff;
+}
+ 
+/* Select Fields */
+select {
+  width: 55%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  background: #f9f9f9;
+  cursor: pointer;
+  appearance: none;
+  transition: border 0.3s ease-in-out;
+  margin-left: 100px;
+}
+ 
+/* Select Field Focus Effect */
+select:focus {
+  border: 1px solid #007bff;
+  outline: none;
+  background: #fff;
+}
+ 
+/* Button Styling */
+.button {
+  width: 380px;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background 0.3s ease-in-out;
+}
+ 
+button:hover {
+  background: #0056b3;
+}
+ 
+/* Message Styles */
+.message {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+ 
+.message:empty {
+  display: none;
+}
+ 
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+ 
+.message.error {
+  background-color: #f8d7da;
+  color: #c9192b;
+  border: 1px solid #f5c6cb;
+}
+ 
+/* Custom Scrollbar */
+.form-container::-webkit-scrollbar {
+  display: none;
+}
+ 
+ 
+ 
+ 
+/* room.css - Add these styles to your existing CSS */
+ 
+.email-input-container {
+  position: relative;
+  width: 100%;
+}
+ 
+.email-dropdown {
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-top: -15px;
+}
+ 
+.email-option {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s;
+}
+ 
+.email-option:hover {
+  background-color: #f5f5f5;
+}
+ 
+.email-option:last-child {
+  border-bottom: none;
+}
+ 
+/* Enhance the input field for email autocomplete */
+.email-input-container input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+ 
+.email-input-container input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+
+
+
+
+
+/* // Add these CSS styles to your room.css file */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.modal-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background-color: #4CAF50;
+  color: white;
+  width: 170px;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  width: 170px;
+}
+
+
