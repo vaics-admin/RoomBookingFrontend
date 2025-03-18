@@ -24,6 +24,8 @@ function BookingForm() {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
+  const [emailQueued, setEmailQueued] = useState(false);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -111,16 +113,6 @@ function BookingForm() {
     }
   };
 
-  // const convertTo12HourFormat = (time) => {
-  //   let [hours, minutes] = time.split(":");
-  //   hours = parseInt(hours);
-  //   const period = hours >= 12 ? "PM" : "AM";
-  //   hours = hours % 12 || 12;
-  //   return `<span class="math-inline">\{hours\}\:</span>{minutes} ${period}`;
-  // };
-
-
-
   const generateTimeOptions = () => {
     const options = [];
     for (let hour = 9; hour <= 23; hour++) {
@@ -184,54 +176,6 @@ const handleTimeToChange = (e) => {
     setShowWeekendConfirm(false);
   };
 
-  // const displayMessage = (msg, isError) => {
-  //   setMessage(msg);
-  //   setTimeout(() => setMessage(''), 5000); // Clear message after 5 seconds
-  // };
-
-  // const processBooking = async () => {
-  //   setIsLoading(true); // Start loading
-  //   const token = localStorage.getItem('token');
-  //   if (!token) {
-  //     navigate('/login');
-  //     return;
-  //   }
-  //   const startTime = new Date(`<span class="math-inline">\{date\}T</span>{timeFrom}`);
-  //   const endTime = new Date(`<span class="math-inline">\{date\}T</span>{timeTo}`);
-  //   if (endTime <= startTime) {
-  //     displayMessage("❌ End time must be later than start time on the same day.", true);
-  //     setIsLoading(false); // Stop loading
-  //     return;
-  //   }
-
-  //   const bookingData = {
-  //     fullName,
-  //     employeeId,
-  //     location,
-  //     branch,
-  //     room,
-  //     date,
-  //     timeFrom: timeFrom,
-  //     timeTo: timeTo,
-  //     bookingType,
-  //     bookedFor: bookingType === "self" ? "Self" : bookedFor,
-  //   };
-
-  //   try {
-  //     const response = await axios.post("http://127.0.0.1:5000/book_room", bookingData, {
-  //       headers: { 'Authorization': `Bearer ${token}` }
-  //     });
-  //     displayMessage(`✅ ${response.data.message}`, false);
-  //     setRoom(""); setLocation("Hyderabad"); setBranch(""); setDate(""); setTimeFrom(""); setTimeTo(""); setBookingType("self"); setBookedFor("");
-  //   } catch (error) {
-  //     displayMessage(error.response?.data?.error || "❌ Failed to book the room", true);
-  //   } finally {
-  //     setIsLoading(false); // Stop loading
-  //   }
-  // };
-
-
-
   const displayMessage = (msg, isError, conflicts = []) => {
     let fullMessage = msg;
     if (isError && conflicts.length > 0) {
@@ -278,7 +222,10 @@ const processBooking = async () => {
         });
         displayMessage(`✅ ${response.data.message}`, false);
         setRoom(""); setLocation("Hyderabad"); setBranch(""); setDate(""); setTimeFrom(""); setTimeTo(""); setBookingType("self"); setBookedFor("");
-    } catch (error) {
+        if (response.data.emailQueued) {
+          setEmailQueued(true);
+      }
+    } catch(error) {
         displayMessage(
             error.response?.data?.error || "❌ Failed to book the room",
             true,
@@ -360,13 +307,6 @@ const processBooking = async () => {
 
                 <label>Select Date:</label>
                 <input type="date" style={{ width: '290px', marginLeft: '105px' }} value={date} onChange={(e) => setDate(e.target.value)} min={getMinDate()} required />
-
-                {/* <label>From Time:</label>
-                <input type="time" style={{ width: '300px', marginLeft: '105px' }} value={timeFrom} onChange={(e) => setTimeFrom(e.target.value)} required />
-
-                <label>To Time:</label>
-                <input type="time" style={{ width: '300px', marginLeft: '105px' }} value={timeTo} onChange={(e) => setTimeTo(e.target.value)} required /> */}
-
                 <label>From Time:</label>
                    <select style={{ width: '320px', marginLeft: '105px' }} value={convertTo12HourFormat(timeFrom)} onChange={handleTimeFromChange} required>
                 {timeOptions.map((option) => (
@@ -384,13 +324,15 @@ const processBooking = async () => {
                
                 <label>Booking Type:</label>
                 <select style={{ width: '320px', marginLeft: '105px' }} value={bookingType} onChange={(e) => setBookingType(e.target.value)} required>
-                    <option value="self">Self</option>
+                    {/* <option value="self">Self</option>
                     <option value="team">Our Team</option>
                     <option value="Client-Team">Client-Team</option>
-                    <option value="others">Some Other Person(s)</option>
+                    <option value="others">Some Other Person(s)</option> */}
+                    <option value="self">Self</option>
+                    <option value="onBehalf">On Behalf</option>
                 </select>
 
-                {bookingType !== "self" && (
+                {bookingType === "onBehalf" && (
                     <>
                         <label>Booked For (Enter Name or Team or Client):</label>
                         <div className="email-input-container" ref={dropdownRef}>
@@ -415,6 +357,15 @@ const processBooking = async () => {
                         {message}
                     </p>
                 )}
+
+              {emailQueued && (
+            <div>
+              <p>Email sending is pending. Please authenticate.</p>
+              <button onClick={() => (window.location.href = "/ms-login")}>
+                Authenticate with Microsoft
+              </button>
+            </div>
+          )}
             </form>
         </div>
     );
