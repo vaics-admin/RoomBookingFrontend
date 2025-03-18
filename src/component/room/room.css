@@ -1,6 +1,6 @@
 /* Apply background image to the entire page */
 body {
-  background: url("C:\Users\VAICS-SHALYA\OneDrive - Vaics consulting\Desktop\Room Booking\frontend\public\shal (2).jpg") no-repeat center center fixed;
+  background: url("/public/loginimage.jpg") no-repeat center center fixed;
   background-size: cover;
   font-family: Arial, sans-serif;
   margin: 0;
