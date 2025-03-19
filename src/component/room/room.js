@@ -65,7 +65,7 @@ function BookingForm() {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
-      const response = await axios.get("http://127.0.0.1:5000/get_employee_emails", {
+      const response = await axios.get("https://roombooking-okvk.onrender.com/get_employee_emails", {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setEmails(response.data.emails || []);
@@ -92,7 +92,7 @@ function BookingForm() {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
-      const response = await axios.get(`http://127.0.0.1:5000/get_employee_emails?search=${searchTerm}`, {
+      const response = await axios.get(`https://roombooking-okvk.onrender.com/get_employee_emails?search=${searchTerm}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setFilteredEmails(response.data.emails || []);
@@ -217,7 +217,7 @@ const processBooking = async () => {
     };
 
     try {
-        const response = await axios.post("http://127.0.0.1:5000/book_room", bookingData, {
+        const response = await axios.post("https://roombooking-okvk.onrender.com/book_room", bookingData, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         displayMessage(`✅ ${response.data.message}`, false);

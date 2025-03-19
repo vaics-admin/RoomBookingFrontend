@@ -15,10 +15,10 @@ function ForgotPassword() {
   const handleSendOtp = async () => {
     setIsLoading(true);
     try {
-      await axios.post('http://127.0.0.1:5000/forgot-password', { email });
+      await axios.post('https://roombooking-okvk.onrender.com/forgot-password', { email });
       
       // Check if we need to authenticate first
-      const authStatus = await axios.get('http://127.0.0.1:5000/auth-status');
+      const authStatus = await axios.get('https://roombooking-okvk.onrender.com/auth-status');
       
       
       setStep(2);
@@ -33,7 +33,7 @@ function ForgotPassword() {
   const handleResetPassword = async () => {
     setIsLoading(true);
     try {
-      await axios.post('http://127.0.0.1:5000/reset-password', { email, otp, newPassword });
+      await axios.post('https://roombooking-okvk.onrender.com/reset-password', { email, otp, newPassword });
       setMessage('Password reset successful! Please login.');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
