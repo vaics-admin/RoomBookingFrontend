@@ -10,21 +10,8 @@ function ForgotPassword() {
   const [newPassword, setNewPassword] = useState('');
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState('');
-  const [needsAuth, setNeedsAuth] = useState(false);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // Check if we need microsoft authentication
-    axios.get('http://127.0.0.1:5000/auth-status')
-      .then(response => {
-        setNeedsAuth(!response.data.authenticated);
-      })
-      .catch(error => {
-        console.error('Error checking auth status:', error);
-      });
-  }, []);
-
   const handleSendOtp = async () => {
     setIsLoading(true);
     try {
@@ -33,14 +20,6 @@ function ForgotPassword() {
       // Check if we need to authenticate first
       const authStatus = await axios.get('http://127.0.0.1:5000/auth-status');
       
-      if (!authStatus.data.authenticated) {
-        // Store the return location
-        localStorage.setItem('returnTo', '/forgot-password');
-        setIsLoading(false);
-        // Redirect to auth
-        navigate('/microsoft-auth');
-        return;
-      }
       
       setStep(2);
       setMessage('OTP sent to your email address');
@@ -66,12 +45,6 @@ function ForgotPassword() {
 
   return (
     <div className="forgot-password-container">
-      {needsAuth && (
-        <div className="auth-notice">
-          <p>Email functionality requires Microsoft authentication</p>
-          <button onClick={() => navigate('/microsoft-auth')}>Authenticate</button>
-        </div>
-      )}
 
       {step === 1 ? (
         <>

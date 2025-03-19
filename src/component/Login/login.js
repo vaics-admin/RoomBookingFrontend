@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
@@ -14,7 +14,29 @@ function Login() {
   const [isRegister, setIsRegister] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [needsAuth, setNeedsAuth] = useState(false);
+
+  useEffect(() => {
+    // Check authentication status on component mount
+    checkAuthStatus();
+  },);
+
+  const checkAuthStatus = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:5000/auth-status');
+      setNeedsAuth(!response.data.authenticated);
+    } catch (error) {
+      console.error('Error checking auth status:', error);
+    }
+  };
+
+  const handleMicrosoftAuth = () => {
+    // Store the return location
+    localStorage.setItem('returnTo', '/login');
+    // Redirect to Microsoft Auth
+    navigate('/microsoft-auth');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +72,12 @@ function Login() {
 
   return (
     <div className="login-container">
+      {needsAuth && (
+        <div className="auth-notice">
+          <p>Email functionality requires Microsoft authentication</p>
+          <button onClick={handleMicrosoftAuth}>Authenticate</button>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className="login-form">
         <h2>{isRegister ? 'Register' : 'Login'}</h2>
 
@@ -117,7 +145,6 @@ function Login() {
               />
             </div>
           </>
-
         )}
 
         <div className="form-group">
@@ -177,137 +204,3 @@ export default Login;
 
 
 
-
-
-
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-// import './login.css';
-
-// function Login() {
-//   const [employeeId, setEmployeeId] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [username, setUsername] = useState('');
-//   const [phoneNumber, setPhoneNumber] = useState('');
-//   const [role, setRole] = useState('Manager 1');
-//   const [isRegister, setIsRegister] = useState(false);
-//   const [message, setMessage] = useState('');
-//   const navigate = useNavigate();
-//   const [isLoading, setIsLoading] = useState(false); // Add loading state
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setIsLoading(true); // Start loading
-//     const endpoint = isRegister ? '/register' : '/login';
-
-//     try {
-//       const response = await axios.post(` http://127.0.0.1:5000${endpoint}`, {
-//         username: isRegister ? username : undefined,
-//         employeeId,
-//         password,
-//         phoneNumber: isRegister ? phoneNumber : undefined,
-//         role: isRegister ? role : undefined,
-//       });
-
-//       if (isRegister) {
-//         setMessage('Registration successful! Waiting for approval.');
-//         setIsRegister(false);
-//       } else {
-//         localStorage.setItem('token', response.data.token);
-//         localStorage.setItem('username', response.data.username);
-//         localStorage.setItem('employeeId', response.data.employeeId);
-//         navigate('/book-room');
-//       }
-//     } catch (error) {
-//       setMessage(error.response?.data?.error || 'An error occurred');
-//     } finally {
-//       setIsLoading(false); // Stop loading
-//     }
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <form onSubmit={handleSubmit} className="login-form">
-//         <h2>{isRegister ? 'Register' : 'Login'}</h2>
-
-//         {isRegister && (
-//           <div className="form-group">
-//             <label>Username:</label>
-//             <input
-//               type="text"
-//               value={username}
-//               onChange={(e) => setUsername(e.target.value)}
-//               required
-//             />
-//           </div>
-//         )}
-
-//         <div className="form-group">
-//           <label>Employee ID:</label>
-//           <input
-//             type="text"
-//             value={employeeId}
-//             onChange={(e) => setEmployeeId(e.target.value)}
-//             required
-//           />
-//         </div>
-
-//         {isRegister && (
-//           <>
-//             <div className="form-group">
-//               <label style={{ width: '180px' }}>Phone Number:</label>
-//               <input
-//                 type="text"
-//                 value={phoneNumber}
-//                 onChange={(e) => setPhoneNumber(e.target.value)}
-//                 required
-//               />
-//             </div>
-
-//             <div className="form-group">
-//               <label style={{ width: '180px' }}>Select Approver:</label>
-//               <select value={role} onChange={(e) => setRole(e.target.value)} required>
-//                 <option value="Manager 1">Manager 1</option>
-//                 <option value="Manager 2">Manager 2</option>
-//                 <option value="HR">HR</option>
-//               </select>
-//             </div>
-//           </>
-//         )}
-
-//         <div className="form-group">
-//           <label>Password:</label>
-//           <input
-//             type="password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//             required
-//           />
-//         </div>
-
-//         <button type="submit" disabled={isLoading}>
-//           {isLoading ? (isRegister ? 'Registering...' : 'Logging in...') : (isRegister ? 'Register' : 'Login')}
-//         </button>
-
-//         <p className="toggle-form">
-//           {isRegister ? 'Already have an account? ' : "Don't have an account? "}
-//           <span onClick={() => setIsRegister(!isRegister)}>
-//             {isRegister ? 'Login' : 'Register'}
-//           </span>
-//         </p>
-
-//         {!isRegister && (
-//           <p className="forgot-password" style={{ textAlign: 'center', color: '#007bff', cursor: 'pointer', textDecoration: 'underline' }}>
-//             <span onClick={() => navigate('/forgot-password')}>Forgot Password?</span>
-//           </p>
-//         )}
-
-//         {message && <p className="message">{message}</p>}
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default Login;

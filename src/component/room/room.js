@@ -324,10 +324,6 @@ const processBooking = async () => {
                
                 <label>Booking Type:</label>
                 <select style={{ width: '320px', marginLeft: '105px' }} value={bookingType} onChange={(e) => setBookingType(e.target.value)} required>
-                    {/* <option value="self">Self</option>
-                    <option value="team">Our Team</option>
-                    <option value="Client-Team">Client-Team</option>
-                    <option value="others">Some Other Person(s)</option> */}
                     <option value="self">Self</option>
                     <option value="onBehalf">On Behalf</option>
                 </select>
