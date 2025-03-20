@@ -10,6 +10,7 @@ function AuthSuccess() {
     const timer = setTimeout(() => {
       // Redirect to previous page or home
       const returnTo = localStorage.getItem('returnTo') || '/';
+      console.log(returnTo)
       localStorage.removeItem('returnTo');
       navigate(returnTo);
     }, 3000);

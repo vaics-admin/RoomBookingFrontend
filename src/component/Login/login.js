@@ -24,7 +24,7 @@ function Login() {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/auth-status');
+      const response = await axios.get('https://roombooking-okvk.onrender.com/auth-status');
       setNeedsAuth(!response.data.authenticated);
     } catch (error) {
       console.error('Error checking auth status:', error);
@@ -44,8 +44,8 @@ function Login() {
     const endpoint = isRegister ? '/register' : '/login';
 
     try {
-       //const response = await axios.post(` http://127.0.0.1:5000${endpoint}`, {
-        const response = await axios.post(` https://roombooking-okvk.onrender.com${endpoint}`, {
+       const response = await axios.post(` https://roombooking-okvk.onrender.com${endpoint}`, {
+        
         fullName: isRegister ? fullName : undefined,
         employeeId,
         email: isRegister ? email : undefined,
